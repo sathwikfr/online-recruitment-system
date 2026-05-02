@@ -1,6 +1,7 @@
 import { useState, useEffect, useMemo, useRef } from 'react';
 import { Upload, CheckCircle, XCircle, Briefcase, ChevronRight, LayoutDashboard, Loader2, Search, MapPin, Building2, Clock, Filter, ChevronDown, Bell, LogIn, UserPlus, LogOut, User, Sparkles } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import api from '../api';
 
 export default function Careers() {
   const [jobs, setJobs] = useState([]);
@@ -52,9 +53,9 @@ export default function Careers() {
     e.preventDefault();
     setAuthLoading(true);
     setAuthError('');
-    const endpoint = authModal === 'login' ? '/api/auth/login' : '/api/auth/register';
+    const endpoint = authModal === 'login' ? api.login : api.register;
     try {
-      const res = await fetch(`http://localhost:5000${endpoint}`, {
+      const res = await fetch(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(authForm),
@@ -105,7 +106,7 @@ export default function Careers() {
     document.title = 'InternRecruit Careers';
     const fetchJobs = async () => {
       try {
-        const res = await fetch('http://localhost:5000/api/jobs');
+        const res = await fetch(api.jobs);
         const data = await res.json();
         setJobs(data);
       } catch (err) {
@@ -158,7 +159,7 @@ export default function Careers() {
       let res;
       if (resumeFile) {
         // Use FormData for file upload
-        res = await fetch('http://localhost:5000/api/candidates', {
+        res = await fetch(api.candidates, {
           method: 'POST',
           body: submitData,
         });
@@ -173,7 +174,7 @@ export default function Careers() {
           skills: formData.skills,
           resumeUrl: formData.resumeUrl
         };
-        res = await fetch('http://localhost:5000/api/candidates', {
+        res = await fetch(api.candidates, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(jsonBody),
@@ -201,7 +202,7 @@ export default function Careers() {
     if (!trackEmail) return;
     setIsTrackLoading(true);
     try {
-      const res = await fetch(`http://localhost:5000/api/candidates/track/${trackEmail}`);
+      const res = await fetch(api.trackCandidate(trackEmail));
       const data = await res.json();
       setTrackResults(data);
     } catch (err) {

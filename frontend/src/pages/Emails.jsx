@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Mail, Send, CheckCircle, XCircle, Loader2, User, ChevronDown } from 'lucide-react';
+import api from '../api';
 
 export default function Emails() {
   const [candidates, setCandidates] = useState([]);
@@ -21,7 +22,7 @@ export default function Emails() {
 
   const fetchCandidates = async () => {
     try {
-      const res = await fetch('http://localhost:5000/api/candidates');
+      const res = await fetch(api.candidates);
       const data = await res.json();
       setCandidates(data);
     } catch (error) {
@@ -88,7 +89,7 @@ export default function Emails() {
     setIsSending(true);
     
     try {
-      const res = await fetch('http://localhost:5000/api/emails/send', {
+      const res = await fetch(api.sendEmail, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(emailData),

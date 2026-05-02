@@ -8,6 +8,7 @@ import Inductions from './pages/Inductions';
 import Emails from './pages/Emails';
 import Login from './pages/Login';
 import Careers from './pages/Careers';
+import api from './api';
 import Jobs from './pages/Jobs';
 
 function Dashboard() {
@@ -25,7 +26,7 @@ function Dashboard() {
     document.title = 'InternRecruit';
     const fetchData = async () => {
       try {
-        const res = await fetch('http://localhost:5000/api/candidates');
+        const res = await fetch(api.candidates);
         const data = await res.json();
         setStats({
           total: data.length,

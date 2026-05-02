@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Plus, Search, MoreVertical, CheckCircle, XCircle, Loader2, Upload, FileText, Trash2, ChevronDown, Users, Link as LinkIcon } from 'lucide-react';
+import api from '../api';
 
 export default function Candidates() {
   const [roleSkills, setRoleSkills] = useState({});
@@ -16,8 +17,8 @@ export default function Candidates() {
     const fetchData = async () => {
       try {
         const [candRes, jobsRes] = await Promise.all([
-          fetch('http://localhost:5000/api/candidates'),
-          fetch('http://localhost:5000/api/jobs')
+          fetch(api.candidates),
+          fetch(api.jobs)
         ]);
         const candData = await candRes.json();
         const jobsData = await jobsRes.json();
@@ -48,7 +49,7 @@ export default function Candidates() {
 
   const fetchCandidates = async () => {
     try {
-      const res = await fetch('http://localhost:5000/api/candidates');
+      const res = await fetch(api.candidates);
       const data = await res.json();
       setCandidates(data);
     } catch (error) {
@@ -59,7 +60,7 @@ export default function Candidates() {
   const handleStatusChange = async (id, newStatus) => {
     setCandidates(candidates.map(c => c._id === id ? { ...c, status: newStatus } : c));
     try {
-      await fetch(`http://localhost:5000/api/candidates/${id}`, {
+      await fetch(`${api.candidates}/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ status: newStatus })
@@ -78,7 +79,7 @@ export default function Candidates() {
     setCandidates(candidates.filter(c => c._id !== id));
 
     try {
-      const res = await fetch(`http://localhost:5000/api/candidates/${id}`, {
+      const res = await fetch(`${api.candidates}/${id}`, {
         method: 'DELETE'
       });
       if (!res.ok) throw new Error('Failed to delete');

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { BookOpen, Calendar as CalendarIcon, User, CheckCircle, XCircle, Loader2, ChevronDown } from 'lucide-react';
+import api from '../api';
 
 export default function Inductions() {
   const [inductions, setInductions] = useState([]);
@@ -21,8 +22,8 @@ export default function Inductions() {
   const fetchData = async () => {
     try {
       const [indRes, testRes] = await Promise.all([
-        fetch('http://localhost:5000/api/inductions'),
-        fetch('http://localhost:5000/api/tests')
+        fetch(api.inductions),
+        fetch(api.tests)
       ]);
       const indData = await indRes.json();
       const testData = await testRes.json();
@@ -49,7 +50,7 @@ export default function Inductions() {
   const handleSchedule = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch('http://localhost:5000/api/inductions', {
+      const res = await fetch(api.inductions, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(newInduction),
@@ -66,7 +67,7 @@ export default function Inductions() {
 
   const updateStatus = async (id, status) => {
     try {
-      const res = await fetch(`http://localhost:5000/api/inductions/${id}`, {
+      const res = await fetch(`${api.inductions}/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ status }),
