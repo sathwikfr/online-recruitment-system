@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0078db"/>
+      <stop offset="100%" style="stop-color:#7c3aed"/>
+    </linearGradient>
+    <linearGradient id="glow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.3"/>
+      <stop offset="100%" style="stop-color:#ffffff;stop-opacity:0"/>
+    </linearGradient>
+  </defs>
+  <!-- Background -->
+  <rect width="64" height="64" rx="14" fill="url(#bg)"/>
+  <!-- Gloss overlay -->
+  <rect width="64" height="32" rx="14" fill="url(#glow)"/>
+  <!-- Briefcase icon in white -->
+  <rect x="13" y="27" width="38" height="23" rx="4" fill="white" opacity="0.95"/>
+  <path d="M24 27V23C24 20.8 25.8 19 28 19H36C38.2 19 40 20.8 40 23V27" stroke="white" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+  <!-- Center stripe -->
+  <rect x="13" y="37" width="38" height="3" fill="url(#bg)" opacity="0.2"/>
+  <!-- Clasp -->
+  <rect x="27.5" y="34.5" width="9" height="5" rx="2.5" fill="url(#bg)"/>
+  <!-- Small sparkle top-right -->
+  <circle cx="52" cy="12" r="3" fill="white" opacity="0.6"/>
+  <circle cx="58" cy="8" r="1.5" fill="white" opacity="0.4"/>
+  <circle cx="55" cy="18" r="1" fill="white" opacity="0.3"/>
+</svg>
